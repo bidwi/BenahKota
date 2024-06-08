@@ -1,10 +1,10 @@
 {
-  "name": "billy-dwi-prakoso-bookshelf-api",
+  "name": "billy-dwi-prakoso-benahkota-api",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "node ./src/server-rak-buku.js",
-    "start-dev": "nodemon ./src/server-rak-buku.js",
+    "start": "node ./src/server-infoBenah.js",
+    "start-dev": "nodemon ./src/server-infoBenah.js",
     "lint": "eslint ./src"
   },
   "keywords": [],

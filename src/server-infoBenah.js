@@ -1,5 +1,5 @@
 const Hapi = require('@hapi/hapi');
-const routes = require('./routes-rak-buku');
+const routes = require('./routes-infoBenah');
 
 const init = async () => {
   const server = Hapi.server({
@@ -15,7 +15,7 @@ const init = async () => {
   server.route(routes);
 
   await server.start();
-  console.log(`Server udah jalan, coba aja cek ${server.info.uri}/books`);
+  console.log(`Server udah jalan, coba aja cek ${server.info.uri}/informasi`);
 };
 
 init();

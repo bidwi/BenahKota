@@ -1,38 +1,39 @@
 const { nanoid } = require('nanoid');
-const books = require('./rak-buku');
+const informasi = require('./infoBenah');
 
-const getAllBukuDwi = (request, h) => {
+const getAllInformasi = (request, h) => {
   const { name, reading, finished } = request.query;
 
-  let bukuParameterKueri = [...books];
+  let informasiParameterKueri = [...informasi];
 
   if (name) {
     const nameHurufKecil = name.toLowerCase();
-    bukuParameterKueri = bukuParameterKueri.filter((satuBuku) => satuBuku.name
-      .toLowerCase().includes(nameHurufKecil));
+    informasiParameterKueri = informasiParameterKueri.filter((satuInformasi) => satuInformasi.name
+      .toLowerCase()
+      .includes(nameHurufKecil));
   }
 
   if (reading !== undefined) {
     const isReading = reading === '1';
-    bukuParameterKueri = bukuParameterKueri.filter(
-      (satuBuku) => satuBuku.reading === isReading,
+    informasiParameterKueri = informasiParameterKueri.filter(
+      (satuInformasi) => satuInformasi.reading === isReading
     );
   }
 
   if (finished !== undefined) {
     const isFinished = finished === '1';
-    bukuParameterKueri = bukuParameterKueri.filter(
-      (satuBuku) => satuBuku.finished === isFinished,
+    informasiParameterKueri = informasiParameterKueri.filter(
+      (satuInformasi) => satuInformasi.finished === isFinished
     );
   }
 
   const balasan = h.response({
     status: 'success',
     data: {
-      books: bukuParameterKueri.map((satuBuku) => ({
-        id: satuBuku.id,
-        name: satuBuku.name,
-        publisher: satuBuku.publisher,
+      informasi: informasiParameterKueri.map((satuInformasi) => ({
+        id: satuInformasi.id,
+        name: satuInformasi.name,
+        publisher: satuInformasi.publisher,
       })),
     },
   });
@@ -40,16 +41,16 @@ const getAllBukuDwi = (request, h) => {
   return balasan;
 };
 
-const deleteBukuDwiDariBookId = (request, h) => {
-  const { bookId } = request.params;
+const deleteInformasiDariInfoId = (request, h) => {
+  const { infoId } = request.params;
 
-  const penanda = books.findIndex((satuBuku) => satuBuku.id === bookId);
+  const penanda = informasi.findIndex((satuInformasi) => satuInformasi.id === infoId);
 
   if (penanda !== -1) {
-    books.splice(penanda, 1);
+    informasi.splice(penanda, 1);
     const balasan = h.response({
       status: 'success',
-      message: 'Buku berhasil dihapus',
+      message: 'infoBenah berhasil dihapus',
     });
     balasan.code(200);
     return balasan;
@@ -57,12 +58,12 @@ const deleteBukuDwiDariBookId = (request, h) => {
 
   const balasan = h.response({
     status: 'fail',
-    message: 'Buku gagal dihapus. Id tidak ditemukan',
+    message: 'infoBenah gagal dihapus. Id tidak ditemukan',
   });
   balasan.code(404);
   return balasan;
 };
-const postBukuDwi = (request, h) => {
+const postInformasi = (request, h) => {
   const {
     name,
     year,
@@ -77,7 +78,7 @@ const postBukuDwi = (request, h) => {
   if (!name) {
     const balasan = h.response({
       status: 'fail',
-      message: 'Gagal menambahkan buku. Mohon isi nama buku',
+      message: 'Gagal menambahkan infoBenah. Mohon isi nama infoBenah',
     });
     balasan.code(400);
     return balasan;
@@ -87,7 +88,7 @@ const postBukuDwi = (request, h) => {
     const balasan = h.response({
       status: 'fail',
       message:
-        'Gagal menambahkan buku. readPage tidak boleh lebih besar dari pageCount',
+        'Gagal menambahkan infoBenah. readPage tidak boleh lebih besar dari pageCount',
     });
     balasan.code(400);
     return balasan;
@@ -98,7 +99,7 @@ const postBukuDwi = (request, h) => {
   const updatedAt = createdAt;
   const finished = pageCount === readPage;
 
-  const newBuku = {
+  const newInformasi = {
     id,
     name,
     year,
@@ -113,16 +114,16 @@ const postBukuDwi = (request, h) => {
     updatedAt,
   };
 
-  books.push(newBuku);
+  informasi.push(newInformasi);
 
-  const isSuccess = books.filter((satuBuku) => satuBuku.id === id).length > 0;
+  const isSuccess = informasi.filter((satuInformasi) => satuInformasi.id === id).length > 0;
 
   if (isSuccess) {
     const balasan = h.response({
       status: 'success',
-      message: 'Buku berhasil ditambahkan',
+      message: 'infoBenah berhasil ditambahkan',
       data: {
-        bookId: id,
+        infoId: id,
       },
     });
     balasan.code(201);
@@ -131,18 +132,18 @@ const postBukuDwi = (request, h) => {
 
   const balasan = h.response({
     status: 'fail',
-    message: 'Buku gagal ditambahkan',
+    message: 'infoBenah gagal ditambahkan',
   });
   balasan.code(500);
   return balasan;
 };
 
-const getBukuDwiDariBookId = (request, h) => {
-  const { bookId } = request.params;
+const getInformasiDariInfoId = (request, h) => {
+  const { infoId } = request.params;
 
-  const selectedBook = books.find((satuBuku) => satuBuku.id === bookId);
+  const selectedInfo = informasi.find((satuInformasi) => satuInformasi.id === infoId);
 
-  if (selectedBook) {
+  if (selectedInfo) {
     const {
       id,
       name,
@@ -156,12 +157,12 @@ const getBukuDwiDariBookId = (request, h) => {
       reading,
       insertedAt,
       updatedAt,
-    } = selectedBook;
+    } = selectedInfo;
 
     return {
       status: 'success',
       data: {
-        book: {
+        infoBenah: {
           id,
           name,
           year,
@@ -181,14 +182,14 @@ const getBukuDwiDariBookId = (request, h) => {
 
   const balasan = h.response({
     status: 'fail',
-    message: 'Buku tidak ditemukan',
+    message: 'infoBenah tidak ditemukan',
   });
   balasan.code(404);
   return balasan;
 };
 
-const putBukuDwiDariId = (request, h) => {
-  const { bookId } = request.params;
+const putInformasiDariId = (request, h) => {
+  const { infoId } = request.params;
 
   const {
     name,
@@ -204,7 +205,7 @@ const putBukuDwiDariId = (request, h) => {
   if (!name) {
     const balasan = h.response({
       status: 'fail',
-      message: 'Gagal memperbarui buku. Mohon isi nama buku',
+      message: 'Gagal memperbarui infoBenah. Mohon isi nama infoBenah',
     });
     balasan.code(400);
     return balasan;
@@ -214,26 +215,26 @@ const putBukuDwiDariId = (request, h) => {
     const balasan = h.response({
       status: 'fail',
       message:
-        'Gagal memperbarui buku. readPage tidak boleh lebih besar dari pageCount',
+        'Gagal memperbarui infoBenah. readPage tidak boleh lebih besar dari pageCount',
     });
     balasan.code(400);
     return balasan;
   }
 
-  const penanda = books.findIndex((satuBuku) => satuBuku.id === bookId);
+  const penanda = informasi.findIndex((satuInformasi) => satuInformasi.id === infoId);
 
   if (penanda === -1) {
     const balasan = h.response({
       status: 'fail',
-      message: 'Gagal memperbarui buku. Id tidak ditemukan',
+      message: 'Gagal memperbarui infoBenah. Id tidak ditemukan',
     });
     balasan.code(404);
     return balasan;
   }
 
   const updatedAt = new Date().toISOString();
-  books[penanda] = {
-    ...books[penanda],
+  informasi[penanda] = {
+    ...informasi[penanda],
     name,
     year,
     author,
@@ -247,16 +248,19 @@ const putBukuDwiDariId = (request, h) => {
 
   const balasan = h.response({
     status: 'success',
-    message: 'Buku berhasil diperbarui',
+    message: 'infoBenah berhasil diperbarui',
   });
   balasan.code(200);
   return balasan;
 };
 
 module.exports = {
-  postBukuDwi,
-  deleteBukuDwiDariBookId,
-  getAllBukuDwi,
-  putBukuDwiDariId,
-  getBukuDwiDariBookId,
+  // dzaky
+  postInformasi,
+  // billy
+  deleteInformasiDariInfoId,
+  getAllInformasi,
+  // gesya
+  putInformasiDariId,
+  getInformasiDariInfoId,
 };
