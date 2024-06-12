@@ -3,8 +3,9 @@ const routes = require('./routes-infoBenah');
 
 const init = async () => {
   const server = Hapi.server({
-    port: 9000,
-    host: 'localhost',
+    port: process.env.PORT || 8000,
+    // hapus localhost
+    host: process.env.HOST || 'localhost' || '0.0.0.0',
     routes: {
       cors: {
         origin: ['*'],

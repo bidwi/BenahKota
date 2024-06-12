@@ -10,6 +10,9 @@
   },
   "rules": {
     "no-console": "off",
-    "comma-dangle": "off"
+    "comma-dangle": "off",
+    "max-len": "off",
+    "object-curly-newline": "off",
+    "eol-last": "off"
   }
 }

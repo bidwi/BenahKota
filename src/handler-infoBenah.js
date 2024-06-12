@@ -2,28 +2,21 @@ const { nanoid } = require('nanoid');
 const informasi = require('./infoBenah');
 
 const getAllInformasi = (request, h) => {
-  const { name, reading, finished } = request.query;
+  const { username, status } = request.query;
 
   let informasiParameterKueri = [...informasi];
 
-  if (name) {
-    const nameHurufKecil = name.toLowerCase();
-    informasiParameterKueri = informasiParameterKueri.filter((satuInformasi) => satuInformasi.name
+  if (username) {
+    const usernameHurufKecil = username.toLowerCase();
+    informasiParameterKueri = informasiParameterKueri.filter((satuInformasi) => satuInformasi.username
       .toLowerCase()
-      .includes(nameHurufKecil));
+      .includes(usernameHurufKecil));
   }
 
-  if (reading !== undefined) {
-    const isReading = reading === '1';
+  if (status !== undefined) {
+    const isStatus = status === '1';
     informasiParameterKueri = informasiParameterKueri.filter(
-      (satuInformasi) => satuInformasi.reading === isReading
-    );
-  }
-
-  if (finished !== undefined) {
-    const isFinished = finished === '1';
-    informasiParameterKueri = informasiParameterKueri.filter(
-      (satuInformasi) => satuInformasi.finished === isFinished
+      (satuInformasi) => satuInformasi.status === isStatus
     );
   }
 
@@ -32,8 +25,10 @@ const getAllInformasi = (request, h) => {
     data: {
       informasi: informasiParameterKueri.map((satuInformasi) => ({
         id: satuInformasi.id,
-        name: satuInformasi.name,
-        publisher: satuInformasi.publisher,
+        username: satuInformasi.username,
+        // gambar: satuInformasi.gambar,
+        deskripsi: satuInformasi.deskripsi,
+        lokasiBenah: satuInformasi.lokasiBenah,
       })),
     },
   });
@@ -50,7 +45,7 @@ const deleteInformasiDariInfoId = (request, h) => {
     informasi.splice(penanda, 1);
     const balasan = h.response({
       status: 'success',
-      message: 'infoBenah berhasil dihapus',
+      message: 'Informasi berhasil dihapus',
     });
     balasan.code(200);
     return balasan;
@@ -58,37 +53,25 @@ const deleteInformasiDariInfoId = (request, h) => {
 
   const balasan = h.response({
     status: 'fail',
-    message: 'infoBenah gagal dihapus. Id tidak ditemukan',
+    message: 'Informasi gagal dihapus. Id tidak ditemukan',
   });
   balasan.code(404);
   return balasan;
 };
+
 const postInformasi = (request, h) => {
   const {
-    name,
-    year,
-    author,
-    summary,
-    publisher,
-    pageCount,
-    readPage,
-    reading,
+    username,
+    gambar,
+    deskripsi,
+    lokasiBenah,
+    status,
   } = request.payload;
 
-  if (!name) {
+  if (!username) {
     const balasan = h.response({
       status: 'fail',
-      message: 'Gagal menambahkan infoBenah. Mohon isi nama infoBenah',
-    });
-    balasan.code(400);
-    return balasan;
-  }
-
-  if (readPage > pageCount) {
-    const balasan = h.response({
-      status: 'fail',
-      message:
-        'Gagal menambahkan infoBenah. readPage tidak boleh lebih besar dari pageCount',
+      message: 'Gagal menambahkan informasi. Mohon isi username',
     });
     balasan.code(400);
     return balasan;
@@ -97,19 +80,14 @@ const postInformasi = (request, h) => {
   const id = nanoid(16);
   const createdAt = new Date().toISOString();
   const updatedAt = createdAt;
-  const finished = pageCount === readPage;
 
   const newInformasi = {
     id,
-    name,
-    year,
-    author,
-    summary,
-    publisher,
-    pageCount,
-    readPage,
-    finished,
-    reading,
+    username,
+    gambar,
+    deskripsi,
+    lokasiBenah,
+    status,
     insertedAt: createdAt,
     updatedAt,
   };
@@ -121,7 +99,7 @@ const postInformasi = (request, h) => {
   if (isSuccess) {
     const balasan = h.response({
       status: 'success',
-      message: 'infoBenah berhasil ditambahkan',
+      message: 'Informasi berhasil ditambahkan',
       data: {
         infoId: id,
       },
@@ -132,7 +110,7 @@ const postInformasi = (request, h) => {
 
   const balasan = h.response({
     status: 'fail',
-    message: 'infoBenah gagal ditambahkan',
+    message: 'Informasi gagal ditambahkan',
   });
   balasan.code(500);
   return balasan;
@@ -146,17 +124,13 @@ const getInformasiDariInfoId = (request, h) => {
   if (selectedInfo) {
     const {
       id,
-      name,
-      year,
-      author,
-      summary,
-      publisher,
-      pageCount,
-      readPage,
-      finished,
-      reading,
+      username,
+      deskripsi,
+      lokasiBenah,
+      status,
       insertedAt,
       updatedAt,
+      gambar,
     } = selectedInfo;
 
     return {
@@ -164,17 +138,13 @@ const getInformasiDariInfoId = (request, h) => {
       data: {
         infoBenah: {
           id,
-          name,
-          year,
-          author,
-          summary,
-          publisher,
-          pageCount,
-          readPage,
-          finished,
-          reading,
+          username,
+          deskripsi,
+          lokasiBenah,
+          status,
           insertedAt,
           updatedAt,
+          gambar,
         },
       },
     };
@@ -182,7 +152,7 @@ const getInformasiDariInfoId = (request, h) => {
 
   const balasan = h.response({
     status: 'fail',
-    message: 'infoBenah tidak ditemukan',
+    message: 'Informasi tidak ditemukan',
   });
   balasan.code(404);
   return balasan;
@@ -192,30 +162,17 @@ const putInformasiDariId = (request, h) => {
   const { infoId } = request.params;
 
   const {
-    name,
-    year,
-    author,
-    summary,
-    publisher,
-    pageCount,
-    readPage,
-    reading,
+    username,
+    gambar,
+    deskripsi,
+    lokasiBenah,
+    status,
   } = request.payload;
 
-  if (!name) {
+  if (!username) {
     const balasan = h.response({
       status: 'fail',
-      message: 'Gagal memperbarui infoBenah. Mohon isi nama infoBenah',
-    });
-    balasan.code(400);
-    return balasan;
-  }
-
-  if (readPage > pageCount) {
-    const balasan = h.response({
-      status: 'fail',
-      message:
-        'Gagal memperbarui infoBenah. readPage tidak boleh lebih besar dari pageCount',
+      message: 'Gagal memperbarui informasi. Mohon isi username',
     });
     balasan.code(400);
     return balasan;
@@ -226,7 +183,7 @@ const putInformasiDariId = (request, h) => {
   if (penanda === -1) {
     const balasan = h.response({
       status: 'fail',
-      message: 'Gagal memperbarui infoBenah. Id tidak ditemukan',
+      message: 'Gagal memperbarui informasi. Id tidak ditemukan',
     });
     balasan.code(404);
     return balasan;
@@ -235,32 +192,26 @@ const putInformasiDariId = (request, h) => {
   const updatedAt = new Date().toISOString();
   informasi[penanda] = {
     ...informasi[penanda],
-    name,
-    year,
-    author,
-    summary,
-    publisher,
-    pageCount,
-    readPage,
-    reading,
+    username,
+    gambar,
+    deskripsi,
+    lokasiBenah,
+    status,
     updatedAt,
   };
 
   const balasan = h.response({
     status: 'success',
-    message: 'infoBenah berhasil diperbarui',
+    message: 'Informasi berhasil diperbarui',
   });
   balasan.code(200);
   return balasan;
 };
 
 module.exports = {
-  // dzaky
   postInformasi,
-  // billy
   deleteInformasiDariInfoId,
   getAllInformasi,
-  // gesya
   putInformasiDariId,
   getInformasiDariInfoId,
 };
