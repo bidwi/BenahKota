@@ -7,6 +7,8 @@ dotenv.config();
 
 const validateApiKey = (request, h) => {
   const apiKey = request.query.api_key || request.headers['api-key'];
+  console.log('Received API Key:', apiKey);
+  console.log('Expected API Key:', process.env.API_KEY);
   if (apiKey !== process.env.API_KEY) {
     return h.response({ status: 'fail', message: 'API key salah' }).code(401).takeover();
   }
@@ -16,7 +18,7 @@ const validateApiKey = (request, h) => {
 const init = async () => {
   const server = Hapi.server({
     port: process.env.PORT || 8000,
-    host: process.env.HOST || '0.0.0.0',
+    host: process.env.HOST || 'localhost',
     routes: {
       cors: {
         origin: ['*'],
