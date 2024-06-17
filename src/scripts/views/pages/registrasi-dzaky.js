@@ -23,8 +23,8 @@ const RegistrasiDzaky = {
             <br>
             <section class="form-group" style="margin-top: -0.7rem;">
               <label for="noWa" style="color:#4D869C; margin-left: 0.5rem; margin-bottom: 3px; font-weight: bolder;">No Whatsapp</label>
-              <input type="text" id="noWa" minlength="9" name="noWa" class="form-control form-control-user" style="border-radius: 13px; border: 1.4px solid #ccc;" placeholder="0812334567" required>
-              <div class="form-text text-body-secondary" style="margin-left: 0.8rem; font-size: 14px;" id="basic-addon4">Minimal 9 karakter</div>
+              <input type="text" id="noWa" minlength="9" name="noWa" pattern="\\d*" class="form-control form-control-user" style="border-radius: 13px; border: 1.4px solid #ccc;" placeholder="0812334567" required>
+              <div class="form-text text-body-secondary" style="margin-left: 0.8rem; font-size: 14px;" id="basic-addon4">Minimal 9 karakter, hanya angka</div>
               </section>
             <br>
             <section class="form-group" style="margin-top: -0.7rem;">
@@ -61,6 +61,17 @@ const RegistrasiDzaky = {
 
   async afterRender() {
     const btnRegistrasi = document.getElementById('btnRegistrasi');
+
+    // Ensure only numeric input for noWa field
+    const noWaInput = document.getElementById('noWa');
+    noWaInput.addEventListener('input', (event) => {
+      const input = event.target;
+      const value = input.value;
+      const sanitizedValue = value.replace(/\D/g, '');
+      if (sanitizedValue !== value) {
+        input.value = sanitizedValue;
+      }
+    });
 
     btnRegistrasi.addEventListener('click', async (event) => {
       event.preventDefault();
@@ -155,7 +166,7 @@ const RegistrasiDzaky = {
           notyf.open({
             type: 'success',
             duration: 7000,
-            message: '<b>Registrasil berhasil!</b>',
+            message: '<b>Registrasi berhasil!</b>',
           });
           localStorage.setItem('UserId', registerData.data.infoId);
           window.location.href = '#/login';
