@@ -154,6 +154,9 @@ const handleDelete = (event) => {
         const row = button.closest('tr');
         if (row) {
           row.remove();
+          setTimeout(() => {
+            window.location.reload();
+          }, 1000);
         }
       } else {
         console.error('Failed to delete data:', response.statusText);
@@ -165,7 +168,6 @@ const handleDelete = (event) => {
 const tablePenggunaTemplate = async (user) => {
   const apiUrlInformasi = `https://fuzzy-mag-bidwi-7f3836df.koyeb.app/pengguna/${user.id}?api_key=${CONFIG.KEY}`;
 
-  // Fetch informasi pengguna termasuk password
   const informasiResponse = await fetch(apiUrlInformasi);
   const informasiData = await informasiResponse.json();
   console.log(informasiData);
@@ -200,8 +202,8 @@ const tableLaporanTemplate = (user) => {
         <td>${user.id}</td>
         <td>${user.username}</td>
         <td>
-          <a href="https://fuzzy-mag-bidwi-7f3836df.koyeb.app/informasi/${user.id}?api_key=${CONFIG.KEY}">
-            <img data-src="${imageUrl}" class="text-primary lazyload" alt="Foto Profil ${user.username}">
+          <a href="${imageUrl}">
+            <img data-src="${imageUrl}" class="text-primary lazyload" style="width: 50px; height: 50px;" alt="Foto Profil ${user.username}">
           </a>
         </td>
         <td>${user.deskripsi}</td>
@@ -219,6 +221,7 @@ const tableLaporanTemplate = (user) => {
         const deleteBtns = tableBody.querySelectorAll('.delete-btn');
         deleteBtns.forEach((btn) => {
           btn.addEventListener('click', handleDelete);
+          window.location.reload();
         });
       }
     })

@@ -19,7 +19,7 @@ const notyf = new Notyf({
     },
     {
       type: 'success',
-      background: '#1FAC26',
+      background: '#2EAB34',
       icon: false,
     },
   ],

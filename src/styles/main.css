@@ -1,6 +1,6 @@
 body {
   background-color: #fff !important;
-  overflow-x: hidden;
+  /* overflow-x: hidden; */
   width: 100%;
   height: 100%;
   margin: 0px;
@@ -13,4 +13,8 @@ body {
 
 .story-containerer {
   padding-top: 2rem;
+}
+
+.nav-hover:hover {
+  opacity: 0.5;
 }

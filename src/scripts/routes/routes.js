@@ -7,7 +7,6 @@ import LandingPageGesya from '../views/pages/landing-page-gesya';
 import LaporGesya from '../views/pages/lapor-gesya';
 import LoginDzaky from '../views/pages/login-dzaky';
 import RegistrasiDzaky from '../views/pages/registrasi-dzaky';
-// import loginData from '../data/login-data';
 
 const routes = {
   '/': LandingPageGesya,

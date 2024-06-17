@@ -54,7 +54,6 @@ const LoginDzaky = {
       }
 
       try {
-        // Fetch all usernames and IDs
         const usernamesResponse = await fetch(
           `https://fuzzy-mag-bidwi-7f3836df.koyeb.app/pengguna?api_key=${CONFIG.KEY}`
         );
@@ -75,7 +74,6 @@ const LoginDzaky = {
           return;
         }
 
-        // Fetch password for the specific ID found
         const userId = userInfo.id;
         const passwordResponse = await fetch(
           `https://fuzzy-mag-bidwi-7f3836df.koyeb.app/pengguna/${userId}?api_key=${CONFIG.KEY}`
@@ -85,29 +83,25 @@ const LoginDzaky = {
         }
         const passwordData = await passwordResponse.json();
 
-        // Check if password matches
         const storedPassword = passwordData.data.infoPengguna.password;
         if (passwordInput !== storedPassword) {
           notyf.open({
             type: 'error',
             duration: 7000,
-            message: '<b>Password salah!</b>',
+            message: '<b>Password/Username salah!</b>',
           });
           return;
         }
 
-        // Simpan username, peran, dan noWa ke localStorage
         localStorage.setItem('username', userInfo.username);
         localStorage.setItem('peran', userInfo.peran);
         localStorage.setItem('noWa', userInfo.noWa);
 
-        // Simpan username, peran, dan noWa ke localStorage
-        localStorage.setItem('username', userInfo.username);
-        localStorage.setItem('peran', userInfo.peran);
-        localStorage.setItem('noWa', userInfo.noWa);
-
-        // Login berhasil, redirect ke halaman beranda
         window.location.hash = '#/beranda';
+        window.location.reload();
+
+        document.getElementById('loginNav').classList.add('d-none');
+        document.getElementById('logoutNav').classList.remove('d-none');
       } catch (error) {
         console.error('Error saat login:', error);
         notyf.open({

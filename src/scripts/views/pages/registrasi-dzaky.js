@@ -62,7 +62,6 @@ const RegistrasiDzaky = {
   async afterRender() {
     const btnRegistrasi = document.getElementById('btnRegistrasi');
 
-    // Ensure only numeric input for noWa field
     const noWaInput = document.getElementById('noWa');
     noWaInput.addEventListener('input', (event) => {
       const input = event.target;
@@ -88,7 +87,6 @@ const RegistrasiDzaky = {
       const ulangipassword = document.getElementById('ulangipassword').value;
       const peran = document.getElementById('peran').value;
 
-      // Validasi panjang minimum
       if (
         username.length < 6 ||
         lokasi.length < 4 ||
@@ -105,7 +103,6 @@ const RegistrasiDzaky = {
         return;
       }
 
-      // Validasi password dan ulangipassword sama
       if (password !== ulangipassword) {
         notyf.open({
           type: 'error',
@@ -116,7 +113,6 @@ const RegistrasiDzaky = {
       }
 
       try {
-        // Check if username or noWa already exist
         const response = await fetch(
           `https://fuzzy-mag-bidwi-7f3836df.koyeb.app/pengguna?api_key=${CONFIG.KEY}`
         );

@@ -5,7 +5,7 @@ import notyf from '../../global/toast-initiator';
 
 const HistoryBilly = {
   async render() {
-    notyf.success('Mohon tunggu sebentar!');
+    notyf.success('<b>Mengambil data riwayat..</b>');
     return `
     <main class="my-4 d-flex justify-content-center">
     <section>

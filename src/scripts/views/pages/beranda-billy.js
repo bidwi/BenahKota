@@ -4,7 +4,7 @@ import notyf from '../../global/toast-initiator';
 
 const BerandaBilly = {
   async render() {
-    notyf.success('Mohon tunggu sebentar!');
+    notyf.success('<b>Mengambil data beranda..</b>');
     return `
       <div class="card mx-auto mt-4" style="width: 18rem;">
         <div class="card-body d-flex justify-content-center flex-column">

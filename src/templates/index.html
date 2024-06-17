@@ -29,10 +29,15 @@
                </button>
                <div class="collapse navbar-collapse flex-row-reverse" id="navbarNavAltMarkup">
                     <div class="navbar-nav">
-                         <a class="nav-link text-light" style="font-weight: bolder;" href="#/beranda">Beranda</a>
-                         <a class="nav-link text-light" style="font-weight: bolder;" href="#/lapor">Lapor</a>
-                         <a class="nav-link text-light" style="font-weight: bolder;" href="#/history">History</a>
-                         <a class="nav-link text-light" style="font-weight: bolder;" href="#/login">Login</a>
+                         <a class="nav-link text-light nav-hover" style="font-weight: bolder;"
+                              href="#/beranda">Beranda</a>
+                         <a class="nav-link text-light nav-hover" style="font-weight: bolder;" href="#/lapor">Lapor</a>
+                         <a class="nav-link text-light nav-hover" style="font-weight: bolder;"
+                              href="#/history">History</a>
+                         <a class="nav-link text-light nav-hover" id="loginNav" style="font-weight: bolder;"
+                              href="#/login">Login</a>
+                         <a class="nav-link text-light d-none nav-hover" id="logoutNav"
+                              style="font-weight: bolder; cursor: pointer;">Logout</a>
                     </div>
                </div>
           </div>
@@ -68,6 +73,30 @@
                     behavior: 'smooth'
                });
           }
+
+          document.addEventListener('DOMContentLoaded', function () {
+               const loginNav = document.getElementById('loginNav');
+               const logoutNav = document.getElementById('logoutNav');
+
+               function updateNavigation() {
+                    const isLoggedIn = localStorage.getItem('username') !== null;
+                    if (isLoggedIn) {
+                         loginNav.classList.add('d-none');
+                         logoutNav.classList.remove('d-none');
+                    } else {
+                         loginNav.classList.remove('d-none');
+                         logoutNav.classList.add('d-none');
+                    }
+               }
+
+               logoutNav.addEventListener('click', function () {
+                    localStorage.clear();
+                    updateNavigation();
+                    window.location.hash = '#/login';
+               });
+
+               updateNavigation();
+          });
      </script>
      <script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
 </body>

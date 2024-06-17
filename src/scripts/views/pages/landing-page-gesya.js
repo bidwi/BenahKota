@@ -9,7 +9,7 @@ const LandingPageGesya = {
             <h1 class="fw-bold pb-4" style="color:#4D869C; font-size:70px">Selamat Datang di Benah Kota!</h1>
             <p class="fs-6 fw-normal pb-3" style="color:#4D869C;">Benah Kota merupakan platform terpadu untuk meningkatkan kesadaran dan partisipasi masyarakat dalam menjaga kelestarian lingkungan dan fasilitas kota. Di sini, Anda bisa melaporkan kerusakan fasilitas umum, mengikuti tantangan ramah lingkungan, mendukung proyek komunitas, dan mengakses informasi real-time tentang kondisi lingkungan sekitar Anda.</p>
             <div class="d-flex gap-3">
-              <a href="#" class="btn btn-success btn-lg bg-light rounded-5 pt-2 pb-2 ps-4 pe-4 fs-5 fw-medium" style="color:#4D869C;">Lihat Permasalahan <i class="bi bi-eye ps-1"></i></a>
+              <a href="/#/beranda" class="btn btn-success btn-lg bg-light rounded-5 pt-2 pb-2 ps-4 pe-4 fs-5 fw-medium" style="color:#4D869C;">Lihat Permasalahan <i class="bi bi-eye ps-1"></i></a>
               <a href="/#/lapor" class="btn btn-success btn-lg rounded-5 pt-2 pb-2 ps-4 pe-4 fs-5 fw-medium" style="background-color:#4D869C;">Lapor Sekarang! <i class="bi bi-flag-fill ps-1"></i></i></a>
             </div>
         </div>
@@ -163,7 +163,7 @@ const LandingPageGesya = {
   },
 
   async afterRender() {
-    // Fungsi ini akan dipanggil setelah render()
+    // afterRender
   },
 };
 

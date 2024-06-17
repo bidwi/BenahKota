@@ -42,7 +42,7 @@ const AdminKirimLaporanDzaky = {
   },
 
   async afterRender() {
-    // Fungsi ini akan dipanggil setelah render()
+    // afterRender
   },
 };
 

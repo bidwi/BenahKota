@@ -45,7 +45,6 @@ const AdminPenggunaBilly = {
     const users = await BenahKotaSource.penggunaBenahKota();
     const tableBody = document.querySelector('#table');
 
-    // Menggunakan Promise.all untuk menunggu semua template selesai
     const rows = await Promise.all(
       users.map((user) => tablePenggunaTemplate(user))
     );
@@ -72,7 +71,9 @@ const AdminPenggunaBilly = {
               },
             }
           );
-          row.remove();
+          row.remove(); // Hapus baris dari DOM setelah penghapusan berhasil
+          // Baris di atas akan dihapus sebelum me-refresh
+          location.reload(); // Reload halaman setelah penghapusan
         } catch (error) {
           console.error('Error deleting user:', error);
         }

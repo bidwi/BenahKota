@@ -19,29 +19,24 @@ class App {
       drawer: this._drawer,
       content: this._content,
     });
-
-    // Inisiasi komponen lain jika diperlukan
   }
 
   async renderPage() {
     const url = UrlParser.parseActiveUrlWithCombiner();
     const page = routes[url];
 
-    // Penanganan khusus untuk halaman login
     if (url === '/login' && !localStorage.getItem('username')) {
       this._content.innerHTML = await LoginDzaky.render();
       await LoginDzaky.afterRender();
       return;
     }
 
-    // Penanganan khusus untuk halaman registrasi
     if (url === '/registrasi' && !localStorage.getItem('username')) {
       this._content.innerHTML = await RegistrasiDzaky.render();
       await RegistrasiDzaky.afterRender();
       return;
     }
 
-    // Middleware untuk pengecekan peran
     const accessCheck = App._checkAccess(url);
     if (!accessCheck.hasAccess) {
       window.location.hash = accessCheck.redirectTo;
@@ -62,17 +57,14 @@ class App {
     ];
 
     if (!peran) {
-      // Jika tidak ada peran (belum login), redirect ke halaman login
       return { hasAccess: false, redirectTo: '/login' };
     }
 
     if (peran === 'User') {
-      // Pengguna dengan peran User tidak boleh mengakses halaman admin
       if (adminPaths.includes(url)) {
         return { hasAccess: false, redirectTo: '/login' };
       }
     } else if (peran === 'admin' || peran === 'Admin') {
-      // Pengguna dengan peran admin hanya boleh mengakses halaman admin
       if (!adminPaths.includes(url)) {
         return { hasAccess: false, redirectTo: '/admin-pengguna' };
       }
