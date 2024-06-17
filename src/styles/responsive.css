@@ -1,18 +1,1 @@
-@media (max-width: 768px) {
-  .story-containerer {
-    flex-direction: column; /* Mengatur tata letak menjadi satu kolom di bawah 768px */
-    align-items: center; /* Pusatkan konten vertikal */
-    text-align: center; /* Pusatkan teks */
-    padding-top: 60rem;
-  }
 
-  .story-containerer img {
-    margin-bottom: 1rem; /* Beri sedikit ruang antara gambar dan teks */
-  }
-}
-
-@media (max-width: 376px) {
-  .story-containerer img {
-    margin-top: 5rem; /* Beri sedikit ruang antara gambar dan teks */
-  }
-}
