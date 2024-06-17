@@ -169,7 +169,6 @@ const tablePenggunaTemplate = async (user) => {
 
   const informasiResponse = await fetch(apiUrlInformasi);
   const informasiData = await informasiResponse.json();
-  console.log(informasiData);
   const password = informasiData.data.infoPengguna.password || 'Tidak tersedia';
 
   return `

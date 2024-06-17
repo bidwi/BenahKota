@@ -167,7 +167,6 @@ const RegistrasiDzaky = {
           localStorage.setItem('UserId', registerData.data.infoId);
           window.location.href = '#/login';
         } else {
-          console.error('Registrasi gagal:', registerData);
           notyf.open({
             type: 'error',
             duration: 7000,
@@ -175,7 +174,6 @@ const RegistrasiDzaky = {
           });
         }
       } catch (error) {
-        console.error('Terjadi kesalahan:', error);
         notyf.open({
           type: 'error',
           duration: 7000,

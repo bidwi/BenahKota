@@ -10,7 +10,6 @@ class BenahKotaSource {
       const responseJson = await response.json();
       return responseJson.data.informasi || [];
     } catch (error) {
-      console.error('Error fetching data:', error);
       return [];
     }
   }
@@ -24,23 +23,20 @@ class BenahKotaSource {
       const responseJson = await response.json();
       return responseJson.data.infoPengguna || [];
     } catch (error) {
-      console.error('Error fetching data:', error);
       return [];
     }
   }
 
   static async idInformasiBenahKota(id) {
     try {
-      console.log('Fetching details for ID:', id);
       const response = await fetch(API_ENDPOINT.DETAIL(id));
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
       const responseJson = await response.json();
-      console.log(responseJson);
+
       return responseJson.data.infoBenah || [];
     } catch (error) {
-      console.error('Error fetching data:', error);
       return [];
     }
   }

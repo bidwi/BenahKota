@@ -115,9 +115,6 @@ const LaporGesya = {
           status: false,
         };
 
-        console.log('Sending data to:', API_ENDPOINT.INFORMASI);
-        console.log('Payload:', payload);
-
         const response = await fetch(API_ENDPOINT.INFORMASI, {
           method: 'POST',
           headers: {
@@ -128,7 +125,6 @@ const LaporGesya = {
 
         const responseData = await response.json();
         if (response.ok) {
-          console.log('Response data:', responseData);
           notyf.open({
             type: 'success',
             duration: 7000,
@@ -139,14 +135,12 @@ const LaporGesya = {
             window.location.reload();
           }, 500);
         } else {
-          console.error('Response error:', responseData);
           notyf.open({
             type: 'error',
             message: `Gagal mengirim laporan: ${responseData.message}`,
           });
         }
       } catch (error) {
-        console.error('Error:', error);
         notyf.open({
           type: 'error',
           message: 'Terjadi kesalahan. Silakan coba lagi.',

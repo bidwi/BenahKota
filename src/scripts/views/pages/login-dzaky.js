@@ -103,7 +103,6 @@ const LoginDzaky = {
         document.getElementById('loginNav').classList.add('d-none');
         document.getElementById('logoutNav').classList.remove('d-none');
       } catch (error) {
-        console.error('Error saat login:', error);
         notyf.open({
           type: 'error',
           duration: 7000,

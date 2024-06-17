@@ -49,24 +49,25 @@ class App {
 
   static _checkAccess(url) {
     const peran = localStorage.getItem('peran');
-    const adminPaths = [
-      '/admin-pengguna',
-      '/admin-laporan',
-      '/admin-kirim-laporan',
-      '/login',
-    ];
+    const adminPaths = ['/admin-pengguna', '/admin-laporan', '/login'];
+
+    const pembenahPaths = ['/admin-kirim-laporan'];
 
     if (!peran) {
       return { hasAccess: false, redirectTo: '/login' };
     }
 
-    if (peran === 'User') {
-      if (adminPaths.includes(url)) {
+    if (peran === 'User' || peran === 'user') {
+      if (adminPaths.includes(url) || pembenahPaths.includes(url)) {
         return { hasAccess: false, redirectTo: '/login' };
       }
     } else if (peran === 'admin' || peran === 'Admin') {
-      if (!adminPaths.includes(url)) {
+      if (pembenahPaths.includes(url) || !adminPaths.includes(url)) {
         return { hasAccess: false, redirectTo: '/admin-pengguna' };
+      }
+    } else if (peran === 'pembenah' || peran === 'Pembenah') {
+      if (!pembenahPaths.includes(url)) {
+        return { hasAccess: false, redirectTo: '/admin-kirim-laporan' };
       }
     }
 

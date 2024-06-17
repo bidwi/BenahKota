@@ -18,10 +18,7 @@ const HistoryBilly = {
 
   async afterRender() {
     const user = await BenahKotaSource.informasiBenahKota();
-    const pengguna = await BenahKotaSource.penggunaBenahKota();
-
-    console.log(user);
-    console.log(pengguna);
+    // const pengguna = await BenahKotaSource.penggunaBenahKota();
 
     const historyContainer = document.querySelector('#history');
     user.forEach((userItem) => {
