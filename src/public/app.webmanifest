@@ -1,0 +1,18 @@
+{
+  "id": "benah-kota",
+  "start_url": "./index.html",
+  "name": "Benah Kota",
+  "short_name": "Benah",
+  "description": "Ayo Benahi Bersama Benah Kota",
+  "display": "standalone",
+  "background_color": "#CDE8E5",
+  "theme_color": "#4D869C",
+  "icons": [
+    {
+      "src": "/icons/benah-kota-icon.png",
+      "sizes": "144x144",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}
