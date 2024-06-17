@@ -154,6 +154,8 @@ const handleDelete = (event) => {
         const row = button.closest('tr');
         if (row) {
           row.remove();
+          localStorage.setItem('needsDoubleRefresh', 'true');
+          window.location.reload(); // First refresh
         }
       } else {
         console.error('Failed to delete data:', response.statusText);
@@ -218,7 +220,6 @@ const tableLaporanTemplate = (user) => {
         const deleteBtns = tableBody.querySelectorAll('.delete-btn');
         deleteBtns.forEach((btn) => {
           btn.addEventListener('click', handleDelete);
-          window.location.reload();
         });
       }
     })

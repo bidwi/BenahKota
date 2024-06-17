@@ -1,9 +1,8 @@
-// Import statements (sesuaikan pathnya dengan struktur proyek Anda)
 import { navbarTemplate, tablePenggunaTemplate } from '../templates/template';
 import BenahKotaSource from '../../data/benahkota-source';
 import CONFIG from '../../global/config';
+import notyf from '../../global/toast-initiator';
 
-// Function to handle logout
 const handleLogout = () => {
   localStorage.clear();
   window.location.hash = '#/login';
@@ -81,13 +80,10 @@ const AdminPenggunaBilly = {
               },
             }
           );
-          row.remove(); // Hapus baris dari DOM setelah penghapusan berhasil
 
-          // Tandai di localStorage bahwa kita perlu melakukan refresh kedua kali
           localStorage.setItem('needsDoubleRefresh', 'true');
-
-          // Lakukan refresh pertama
           window.location.reload();
+          row.remove();
         } catch (error) {
           console.error('Error deleting user:', error);
         }
@@ -145,6 +141,9 @@ const AdminPenggunaBilly = {
               id: userId,
               ...updatedUser,
             });
+
+            localStorage.setItem('needsDoubleRefresh', 'true');
+            window.location.reload();
             this._addEventListeners();
           } catch (error) {
             console.error('Error updating user:', error);
@@ -197,12 +196,16 @@ const AdminPenggunaBilly = {
   },
 };
 
-// Periksa apakah kita perlu melakukan refresh kedua kali
 if (localStorage.getItem('needsDoubleRefresh') === 'true') {
-  localStorage.removeItem('needsDoubleRefresh'); // Hapus penanda dari localStorage
+  localStorage.removeItem('needsDoubleRefresh');
+  notyf.open({
+    type: 'info',
+    duration: 7000,
+    message: '<b>Data diproses, refresh jika masih belum</b>',
+  });
   setTimeout(() => {
-    window.location.reload(); // Lakukan refresh kedua kali setelah jeda
-  }, 500); // Anda bisa mengatur waktu tunda sesuai kebutuhan
+    window.location.reload();
+  }, 2000);
 }
 
 export default AdminPenggunaBilly;

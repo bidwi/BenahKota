@@ -100,7 +100,7 @@ const LaporGesya = {
 
       notyf.open({
         type: 'info',
-        message: '<b>Login diproses, tunggu sebentar</b>',
+        message: '<b>Sedang diproses, tunggu sebentar</b>',
       });
 
       try {
