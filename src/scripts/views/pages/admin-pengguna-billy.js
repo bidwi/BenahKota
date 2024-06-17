@@ -1,7 +1,9 @@
+// Import statements (sesuaikan pathnya dengan struktur proyek Anda)
 import { navbarTemplate, tablePenggunaTemplate } from '../templates/template';
 import BenahKotaSource from '../../data/benahkota-source';
 import CONFIG from '../../global/config';
 
+// Function to handle logout
 const handleLogout = () => {
   localStorage.clear();
   window.location.hash = '#/login';
@@ -10,27 +12,27 @@ const handleLogout = () => {
 const AdminPenggunaBilly = {
   async render() {
     return `
-<main style="margin-left: 9.4rem">
-  <nav id="navbar"></nav>
-  <section style="margin-right: 1rem; margin-top: 3rem;">
-    <h5 class="mb-3" style="color: #4D869C; font-weight: bolder;">Data Pengguna</h5>
-    <table class="table table-striped table-bordered border-secondary table-sm">
-      <thead>
-        <tr class="text-center">
-          <th scope="col">Username</th>
-          <th scope="col">Lokasi</th>
-          <th scope="col">No. WA</th>
-          <th scope="col">Password</th>
-          <th scope="col">Peran</th>
-          <th scope="col">Aksi</th>
-        </tr>
-      </thead>
-      <tbody id="table">
-      </tbody>
-    </table>
-  </section>
-<main>
-   `;
+      <main style="margin-left: 9.4rem">
+        <nav id="navbar"></nav>
+        <section style="margin-right: 1rem; margin-top: 3rem;">
+          <h5 class="mb-3" style="color: #4D869C; font-weight: bolder;">Data Pengguna</h5>
+          <table class="table table-striped table-bordered border-secondary table-sm">
+            <thead>
+              <tr class="text-center">
+                <th scope="col">Username</th>
+                <th scope="col">Lokasi</th>
+                <th scope="col">No. WA</th>
+                <th scope="col">Password</th>
+                <th scope="col">Peran</th>
+                <th scope="col">Aksi</th>
+              </tr>
+            </thead>
+            <tbody id="table">
+            </tbody>
+          </table>
+        </section>
+      <main>
+    `;
   },
 
   async afterRender() {
@@ -42,15 +44,23 @@ const AdminPenggunaBilly = {
       logoutButton.addEventListener('click', handleLogout);
     }
 
-    const users = await BenahKotaSource.penggunaBenahKota();
-    const tableBody = document.querySelector('#table');
-
-    const rows = await Promise.all(
-      users.map((user) => tablePenggunaTemplate(user))
-    );
-    tableBody.innerHTML = rows.join('');
+    await this._renderTable();
 
     this._addEventListeners();
+  },
+
+  async _renderTable() {
+    try {
+      const users = await BenahKotaSource.penggunaBenahKota();
+      const tableBody = document.querySelector('#table');
+
+      const rows = await Promise.all(
+        users.map((user) => tablePenggunaTemplate(user))
+      );
+      tableBody.innerHTML = rows.join('');
+    } catch (error) {
+      console.error('Error rendering table:', error);
+    }
   },
 
   _addEventListeners() {
@@ -72,8 +82,12 @@ const AdminPenggunaBilly = {
             }
           );
           row.remove(); // Hapus baris dari DOM setelah penghapusan berhasil
-          // Baris di atas akan dihapus sebelum me-refresh
-          location.reload(); // Reload halaman setelah penghapusan
+
+          // Tandai di localStorage bahwa kita perlu melakukan refresh kedua kali
+          localStorage.setItem('needsDoubleRefresh', 'true');
+
+          // Lakukan refresh pertama
+          window.location.reload();
         } catch (error) {
           console.error('Error deleting user:', error);
         }
@@ -95,16 +109,16 @@ const AdminPenggunaBilly = {
         row.dataset.userId = userId;
 
         row.innerHTML = `
-        <td><input type="text" value="${username}" class="form-control form-control-sm"></td>
-        <td><input type="text" value="${lokasi}" class="form-control form-control-sm"></td>
-        <td><input type="text" value="${noWa}" class="form-control form-control-sm"></td>
-        <td><input type="text" value="${password}" class="form-control form-control-sm"></td>
-        <td><input type="text" value="${peran}" class="form-control form-control-sm"></td>
-        <td class="text-center">
-          <button type="button" class="btn m-2 fw-bolder btn-sm btn-primary save-btn">Simpan</button>
-          <button type="button" class="btn m-2 fw-bolder btn-sm btn-outline-dark cancel-btn">Batal</button>
-        </td>
-      `;
+          <td><input type="text" value="${username}" class="form-control form-control-sm"></td>
+          <td><input type="text" value="${lokasi}" class="form-control form-control-sm"></td>
+          <td><input type="text" value="${noWa}" class="form-control form-control-sm"></td>
+          <td><input type="text" value="${password}" class="form-control form-control-sm"></td>
+          <td><input type="text" value="${peran}" class="form-control form-control-sm"></td>
+          <td class="text-center">
+            <button type="button" class="btn m-2 fw-bolder btn-sm btn-primary save-btn">Simpan</button>
+            <button type="button" class="btn m-2 fw-bolder btn-sm btn-outline-dark cancel-btn">Batal</button>
+          </td>
+        `;
 
         row.querySelector('.save-btn').addEventListener('click', async () => {
           const updatedUser = {
@@ -182,5 +196,13 @@ const AdminPenggunaBilly = {
     searchForm.addEventListener('submit', this._handleSearchSubmit);
   },
 };
+
+// Periksa apakah kita perlu melakukan refresh kedua kali
+if (localStorage.getItem('needsDoubleRefresh') === 'true') {
+  localStorage.removeItem('needsDoubleRefresh'); // Hapus penanda dari localStorage
+  setTimeout(() => {
+    window.location.reload(); // Lakukan refresh kedua kali setelah jeda
+  }, 500); // Anda bisa mengatur waktu tunda sesuai kebutuhan
+}
 
 export default AdminPenggunaBilly;

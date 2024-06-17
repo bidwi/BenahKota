@@ -154,9 +154,6 @@ const handleDelete = (event) => {
         const row = button.closest('tr');
         if (row) {
           row.remove();
-          setTimeout(() => {
-            window.location.reload();
-          }, 1000);
         }
       } else {
         console.error('Failed to delete data:', response.statusText);
