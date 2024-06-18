@@ -19,14 +19,14 @@ const LandingPageGesya = {
         </div>
     </header>
 
-  <div class="strength-container m-5" style=" overflow: hidden; margin-bottom: 10rem;">
+  <div class="strength-container m-5" style=" margin-bottom: 10rem;">
     <div class="title-container p-4">
         <h1 class=" title-text fw-bold text-center fs-1" style="color:#4D869C;">Keunggulan Kami</h1>
     </div>
     <div class="card-container d-flex flex-wrap">
       <div class="row row-cols-1 row-cols-md-4 g-4">
         <div class="col">
-          <div class="card border-0 shadow-lg rounded-2 h-100">
+          <div class="card border-0 shadow rounded-4 h-100">
             <div class="image-container rounded-circle overflow-hidden mx-auto my-3" style="width: 150px; height: 150px; background-color:#4D869C;">
               <img data-src="../../images/deadline.png" class="card-img-top w-100 h-100 lazyload" alt="gambar-waktu" style="object-fit: cover;">
             </div>
@@ -37,7 +37,7 @@ const LandingPageGesya = {
           </div>  
         </div>
         <div class="col">
-          <div class="card border-0 shadow-lg rounded-2 h-100">
+          <div class="card border-0 shadow rounded-4 h-100">
             <div class="image-container rounded-circle overflow-hidden mx-auto my-3" style="width: 150px; height: 150px; background-color:#4D869C;">
               <img data-src="../../images/collaboration.png" class="card-img-top w-100 h-100 p-3 lazyload" alt="gambar-waktu" style="object-fit: cover;">
             </div>
@@ -48,7 +48,7 @@ const LandingPageGesya = {
           </div>  
         </div>
         <div class="col">
-          <div class="card border-0 shadow-lg rounded-2 h-100">
+          <div class="card border-0 shadow rounded-4 h-100">
             <div class="image-container rounded-circle overflow-hidden mx-auto my-3" style="width: 150px; height: 150px; background-color:#4D869C;">
               <img data-src="../../images/real-time.png" class="card-img-top w-100 h-100 p-3 lazyload" alt="gambar-waktu" style="object-fit: cover;">
             </div>
@@ -59,7 +59,7 @@ const LandingPageGesya = {
           </div>  
         </div>
         <div class="col">
-          <div class="card border-0 shadow-lg rounded-2 h-100">
+          <div class="card border-0 shadow rounded-4 h-100">
             <div class="image-container rounded-circle overflow-hidden mx-auto my-3" style="width: 150px; height: 150px; background-color:#4D869C;">
               <img data-src="../../images/quality-of-life.png" class="card-img-top w-100 h-100 p-3 lazyload" alt="gambar-waktu" style="object-fit: cover;">
             </div>
@@ -136,6 +136,16 @@ const LandingPageGesya = {
       <a href="#/beranda" class="pt-2 pb-2 ps-4 pe-4 fs-6 fw-semibold me-5" style="color:#4D869C; text-decoration:none;">Lihat Selengkapnya <i class="bi bi-arrow-right ps-1"></i></a>
     </div>
   </div>
+
+  <section class="text-light p-5" id="promo" style="background-color:#4D869C;">
+    <div class="d-md-flex justify-content-between align-items-center">
+      <h3>Dapatkan info menarik</h3>
+      <div class="input-group">
+          <input type="text" class="form-control" placeholder="Masukkan email anda">
+          <button class="btn btn-lg" type="button" style="background-color:#CDE8E5;">Submit</button>
+      </div>
+    </div>
+  </section>
 
   <div class="contact-container d-flex justify-content-around m-5">
     <div class="contact-content rounded-start-4 rounded-end-4 p-4" style="background-color:#4D869C; width:35%;">
