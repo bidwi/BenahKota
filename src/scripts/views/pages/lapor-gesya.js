@@ -130,14 +130,15 @@ const LaporGesya = {
             duration: 7000,
             message: '<b>Laporan Berhasil dikirim</b>',
           });
-          window.location.href = '#/beranda';
+          window.location.href = '#/history';
           setTimeout(() => {
             window.location.reload();
           }, 500);
         } else {
           notyf.open({
             type: 'error',
-            message: `Gagal mengirim laporan: ${responseData.message}`,
+            duration: 10000,
+            message: `Gagal mengirim laporan: ${responseData.message}, <b>Coba kirim file yang lebih kecil</b>`,
           });
         }
       } catch (error) {
