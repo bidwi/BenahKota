@@ -20,7 +20,7 @@ const AdminKirimLaporanDzaky = {
                       </header>
                       <form id="laporanForm" class="user" method="post" action="/kirimlaporan" enctype="multipart/form-data">
                         <div class="mb-3">
-                          <label for="id" style="color: #4D869C !important;" class="form-label fw-bold">ID Laporan <br> <i style="font-size: 13px;" class="fw-bold"> *Ambil ID di bawah form untuk mengambil data<i/></label>
+                          <label for="id" style="color: #4D869C !important;" class="form-label fw-bold">ID Laporan <br> <i style="font-size: 13px;" class="fw-bold"> *Ambil ID di bawah form untuk mengambil data </i> </label>
                           <input type="text" class="form-control rounded-2" style="border-radius: 13px; border: 1.4px solid #ccc;" id="id" placeholder="Masukkan ID" required>
                           <button type="button" id="fetchDataBtn" style="background-color: #4D869C !important;" class="btn d-flex justify-content-end ms-1 btn-dark btn-sm mt-2">Ambil Data</button>
                         </div>
