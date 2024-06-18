@@ -45,6 +45,9 @@ const berandaTemplate = (user) => {
     .then((response) => response.json())
     .then((data) => {
       const imageUrl = data.data.infoBenah.gambar;
+      let statusUrl = data.data.infoBenah.status;
+
+      statusUrl = statusUrl ? 'Selesai' : 'Belum selesai';
 
       const cardHTML = `
         <div class="card m-2" style="width: 15rem;">
@@ -53,6 +56,7 @@ const berandaTemplate = (user) => {
           <p class="card-text fw-bold" style="font-size: 16px;">${user.lokasiBenah}</p>
           <h6 class="card-subtitle mb-2 text-body-secondary">${user.deskripsi}</h6>
           <h6 class="card-title" style="font-size: 14px;">Dari: <b>${user.username}</b></h6>
+          <h6 class="card-title" style="font-size: 14px;">Status: <b>${statusUrl}</b></h6>
           </div>
         </div>
       `;
