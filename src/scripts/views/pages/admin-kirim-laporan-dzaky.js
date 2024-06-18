@@ -10,7 +10,7 @@ const AdminKirimLaporanDzaky = {
       <main class="container">
         <div class="row justify-content-center">
           <div class="col-md-60 col-lg-6">
-            <section class="card o-hidden border-0" style="background-color: #CDE8E5; border-radius: 20px; margin-top: 75px;">
+            <section class="card o-hidden border-0" style="background-color: #DDF0EE; border-radius: 20px; margin-top: 75px;">
               <div class="card-body p-0">
                 <div class="row">
                   <div class="col-lg-12">
