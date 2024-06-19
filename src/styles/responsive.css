@@ -1,1 +1,9 @@
+@media only screen and (max-width: 507px) {
+  .tabeladmin {
+    margin-top: 15px;
+  }
 
+  .tablenamaadmin {
+    text-align: start;
+  }
+}

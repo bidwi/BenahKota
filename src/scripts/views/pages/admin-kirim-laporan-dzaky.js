@@ -14,7 +14,7 @@ const AdminKirimLaporanDzaky = {
               <div class="card-body p-0">
                 <div class="row">
                   <div class="col-lg-12">
-                    <article class="p-5">
+                    <article class="p-5" style="margin-left: -1rem;">
                       <header>
                         <h1 style="color: #4D869C !important;" class="h4 text-gray-900 mb-4 fw-bolder text-center">Kirim Laporan</h1>
                       </header>
@@ -57,6 +57,7 @@ const AdminKirimLaporanDzaky = {
                       </main>
                       <div id="data-table-container" class="mx-5 mt-5">
                         <h5 class="mb-3" style="color: #4D869C; font-weight: bolder;">Data Laporan Kerusakan</h5>
+                        <div class="table-responsive">
                         <table class="table table-striped table-bordered border-secondary table-sm">
                           <thead>
                             <tr class="text-center">
@@ -72,6 +73,7 @@ const AdminKirimLaporanDzaky = {
                           <tbody id="table">
                           </tbody>
                         </table>
+                        </div>
                       </div>
     </main>
     `;

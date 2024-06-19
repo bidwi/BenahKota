@@ -75,14 +75,14 @@ const berandaTemplate = (user) => {
 
 const navbarTemplate = `
 <nav class="navbar" style="margin-top: -1rem; background-color: #EEF7FF; position: fixed; top: 0; right: 0; left: 0;">
-    <div class="container-fluid" style="margin-left: 9rem; margin-bottom: -18px;">
+    <div class="container-fluid tabeladmin" style="margin-left: 9rem; margin-bottom: -18px;">
         <form class="d-flex" role="search">
             <input class="form-control me-2" style="border: 1.7px solid #4D869C; cursor: pointer;" type="search" placeholder="Cari" aria-label="Search">
             <button class="btn" style="background-color: #4D869C;" type="submit"><img src="../../icons/search.svg" alt="search"/></button>
         </form>
         <h4 class="mt-3 me-2" style="font-weight: bold; color: #4D869C;"><span style="display: block;">${localStorage.getItem(
           'username'
-        )}</span><p class="text-end" style="font-size: small;">admin</p></h4>
+        )}</span><p class="text-end tablenamaadmin" style="font-size: small;">admin</p></h4>
     </div>
 </nav>
 
@@ -111,7 +111,7 @@ const navbarTemplate = `
 
 const navbarLaporanTemplate = `
 <nav class="navbar" style="margin-top: -1rem; background-color: #EEF7FF; position: fixed; top: 0; right: 0; left: 0;">
-    <div class="container-fluid" style="margin-left: 9rem; margin-bottom: -18px;">
+    <div class="container-fluid tabeladmin" style="margin-left: 9rem; margin-bottom: -18px;">
         <form class="d-flex" role="search">
             <input class="form-control me-2" style="border: 1.7px solid #4D869C; cursor: pointer;" type="search" placeholder="Cari" aria-label="Search">
             <button class="btn" style="background-color: #4D869C;" type="submit"><img src="../../icons/search.svg" alt="search"/></button>

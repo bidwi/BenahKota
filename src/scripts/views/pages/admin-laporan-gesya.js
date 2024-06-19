@@ -17,6 +17,7 @@ const AdminLaporanGesya = {
         <nav id="navbar"></nav>
         <section style="margin-right: 1rem; margin-top: 3rem;">
           <h5 class="mb-3" style="color: #4D869C; font-weight: bolder;">Data Laporan Kerusakan</h5>
+          <div class="table-responsive">
           <table class="table table-striped table-bordered border-secondary table-sm">
             <thead>
               <tr class="text-center">
@@ -32,6 +33,7 @@ const AdminLaporanGesya = {
             <tbody id="table">
             </tbody>
           </table>
+          </div>
         </section>
       <main>
     `;
